@@ -1,6 +1,7 @@
 ## Tech
 * React
 * Webpack
+* Axios
 
 ## MVP Goals
 * Login of some type
