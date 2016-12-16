@@ -13,9 +13,9 @@ class AwesomeComponent extends React.Component {
     var config = {
       headers: {'Authorization': 'Basic YmVuamltZWxpdG86TWltZXM1NTU='}
     };
-    axios.get('https://www.mysportsfeeds.com/api/feed/pull/nba/2016-2017-regular/daily_game_schedule.json?fordate=20161214', config)
+    axios.get('https://www.mysportsfeeds.com/api/feed/pull/nba/2016-2017-regular/daily_game_schedule.json?fordate=20161215', config)
     .then(function(data){
-      console.log(data, process.env.config)
+      console.log(data)
     })
   }
 
