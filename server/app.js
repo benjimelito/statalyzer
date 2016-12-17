@@ -3,11 +3,16 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const router = express.Router();
 const app = express();
-const routes = require('./routes/index');
+const routes = require('./routes/index.js');
+const scrape = require('./routes/scrape.js')
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 app.use('/', routes);
+app.use(scrape)
 
 // 404 catcher
 app.use((req, res, next) => {
