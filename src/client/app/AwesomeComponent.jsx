@@ -31,7 +31,6 @@ class AwesomeComponent extends React.Component {
   render() {
     return (
       <div>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
         <Navbar>
           <Navbar.Header>
           <Navbar.Brand>
