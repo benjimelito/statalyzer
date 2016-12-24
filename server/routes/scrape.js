@@ -6,7 +6,7 @@ const axios = require('axios');
 router.post('/scrape', (req, res, next) => {
   axios.get(req.body.url)
   .then(function(response){
-    var logs = []
+    let logs = []
     let $ = cheerio.load(response.data)
       $('tr').each(function(index){
         let json = { 'Date' : "", Opponent : "", Game: "", Result: "", Score: "", ATS: "", Spread: "", OU: "", Total: ""}

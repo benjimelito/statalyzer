@@ -5,6 +5,7 @@ const router = express.Router();
 const app = express();
 const routes = require('./routes/index.js');
 const scrape = require('./routes/scrape.js')
+const scrapeToday = require('./routes/scrapeToday.js')
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
@@ -12,7 +13,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 app.use('/', routes);
-app.use(scrape)
+app.use(scrape);
+app.use(scrapeToday);
+
 
 // 404 catcher
 app.use((req, res, next) => {
