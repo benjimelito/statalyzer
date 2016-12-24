@@ -1,5 +1,5 @@
-const React = require('react');
-const axios = require('axios');
+import React from 'react';
+import axios from 'axios';
 import { Navbar } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
 import { NavItem } from 'react-bootstrap';
@@ -11,21 +11,9 @@ class AwesomeComponent extends React.Component {
   }
 
   componentDidMount() {
-    // var base_url = 'http://www.oddsshark.com/stats/gamelog/basketball/nba/20722'
+    let base_url = 'https://www.sportsbook.ag/sbk/sportsbook4/nba-betting/game-lines.sbk'
     
-    // axios.post('/scrape', { url: base_url})
-    
-    const date = new Date()
-    const dateString = '' + date.getFullYear() + (date.getMonth() +1) + date.getDate()
-    
-    const config = {
-      headers: {'Authorization': 'Basic YmVuamltZWxpdG86TWltZXM1NTU='}
-    };
-    axios.get('https://www.mysportsfeeds.com/api/feed/pull/nba/2016-2017-regular/daily_game_schedule.json?fordate=' + dateString, config)
-    .then(function(data){
-      console.log(data)
-    })
-  
+    axios.post('/scrapeToday', { url: base_url})
   }
 
   render() {
