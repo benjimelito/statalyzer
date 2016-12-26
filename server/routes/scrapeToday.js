@@ -9,17 +9,17 @@ router.post('/scrapeToday', (req, res, next) => {
   	let logs = []
     let $ = cheerio.load(response.data)
     $('.eventbox').each(function(index){
-    	let json = { Home : "", Away : "", 'Home Spread': "", 'Away Spread': "", Time: "", 'Home Line': "", 'Away Line': ""}
+    	let json = { Home : "", Away : "", 'Home Spread': "", 'Away Spread': "", Time: "", 'Home Line': "", 'Away Line': "", Over: "", Under: ""}
     	json.Time = $(this).find('#time').text().split(' ')[0]
     	json['Home Spread'] = $(this).find('.market').eq(1).text()
     	json['Away Spread'] = $(this).find('.eventrow').children().last().find('.market').eq(1).text()
     	json.Home = $(this).find('#firstTeamName').text()
     	json.Away = $(this).find('#secondTeamName').text()
-    	json['Away Line'] = $(this).find('.money').eq(1).find('.market').text()
-    	json['Home Line'] = $(this).find('.money').eq(0).find('.market').text()
+    	json.Over = $(this).find('.money').eq(1).find('.market').text()
+    	json.Under= $(this).find('.money').eq(0).find('.market').text()
     	logs.push(json)
     })
-    console.log(logs)
+    res.send(logs)
   })
 })
 
