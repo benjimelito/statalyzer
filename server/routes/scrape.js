@@ -40,7 +40,7 @@ router.post('/scrape', (req, res, next) => {
         json.Total = $(this).find('td').eq(8).text().trim()
         logs.push(json)
       })
-    console.log(logs)
+    console.log('NEW TEAM')
   })
 })
 

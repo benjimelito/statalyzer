@@ -4,12 +4,16 @@ import Matchups from './Matchups.jsx';
 import {Jumbotron} from 'react-bootstrap';
 import NavBar from './NavBar.jsx';
 import axios from 'axios';
+import gameLogs from './gameLogs'
 
 class App extends React.Component {
   
   componentDidMount() {
-    let base_url = 'http://www.oddsshark.com/stats/gamelog/basketball/nba/20747'
-    axios.post('/scrape', { url: base_url})
+    for(var url in gameLogs) {
+      let base_url = gameLogs[url];
+      console.log(base_url)
+      axios.post('/scrape', { url: base_url})
+    }
   }
 
   render () {
