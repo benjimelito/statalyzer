@@ -7,6 +7,11 @@ import axios from 'axios';
 
 class App extends React.Component {
   
+  componentDidMount() {
+    let base_url = 'http://www.oddsshark.com/stats/gamelog/basketball/nba/20747'
+    axios.post('/scrape', { url: base_url})
+  }
+
   render () {
     return (
     	<div>
