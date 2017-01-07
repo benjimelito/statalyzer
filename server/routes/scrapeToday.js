@@ -11,12 +11,14 @@ router.post('/scrapeToday', (req, res, next) => {
     $('.eventbox').each(function(index){
     	let json = { Home : "", Away : "", 'Home Spread': "", 'Away Spread': "", Time: "", 'Home Line': "", 'Away Line': "", Over: "", Under: ""}
     	json.Time = $(this).find('#time').text().split(' ')[0]
-    	json['Home Spread'] = $(this).find('.market').eq(1).text()
-    	json['Away Spread'] = $(this).find('.eventrow').children().last().find('.market').eq(1).text()
-    	json.Home = $(this).find('#firstTeamName').text()
-    	json.Away = $(this).find('#secondTeamName').text()
-    	json.Over = $(this).find('.money').eq(1).find('.market').text()
-    	json.Under= $(this).find('.money').eq(0).find('.market').text()
+    	json['Away Spread'] = $(this).find('.market').eq(1).text()
+    	json['Home Spread'] = $(this).find('.market').eq(4).text()
+    	json.Away = $(this).find('#firstTeamName').text()
+    	json.Home = $(this).find('#secondTeamName').text()
+    	json.Over = $(this).find('.market').eq(0).text()
+    	json.Under = $(this).find('.market').eq(3).text()
+      json['Away Line'] = $(this).find('.market').eq(2).text()
+      json['Home Line'] = $(this).find('.market').eq(5).text()
     	logs.push(json)
     })
     res.send(logs)

@@ -13,7 +13,7 @@ class Matchups extends React.Component {
   }
 
   componentDidMount() {
-    let base_url = 'https://www.sportsbook.ag/sbk/sportsbook4/nba-betting/game-lines.sbk'
+    const base_url = 'https://www.sportsbook.ag/sbk/sportsbook4/nba-betting/game-lines.sbk'
     axios.post('/scrapeToday', { url: base_url})
     .then((response) => {
       this.setState({
