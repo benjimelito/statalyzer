@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const cheerio = require('cheerio');
 const axios = require('axios');
+const cluster = require('cluster')
+
 
 router.post('/scrape', (req, res, next) => {
   axios.get(req.body.url)
@@ -11,7 +13,7 @@ router.post('/scrape', (req, res, next) => {
       $('tr').each(function(index){
         
         //Setting the inital game object that we will overwrite with data about the game
-        let json = { 'Date' : null, Opponent : null, 'Location': null, Game: null, Result: null, teamScore: null, oppScore: null, ATS: null, Spread: null, OU: null, Total: null}
+        let json = { 'Date' : null, Team: null, Opponent : null, 'Location': null, Game: null, Result: null, teamScore: null, oppScore: null, ATS: null, Spread: null, OU: null, Total: null}
         
         //The score is initially expressed like this: 113-109, with the winner's score always first.
         //We must split the score, then assign the totals appropriately based on the winner
@@ -31,6 +33,8 @@ router.post('/scrape', (req, res, next) => {
         
 
         json.Date = $(this).find('td').eq(0).text().trim()
+        json.GameNumber = index //Argument to the each function
+        json.Team = req.body.team //Passed in along with the url as part of the POST request
         json.Opponent = $(this).find('td').eq(1).text().trim().split(' ').slice(2).join(' ') //Getting of the preceding 'vs' or '@'
         json.Game = $(this).find('td').eq(2).text().trim()
         json.Result = $(this).find('td').eq(3).text().trim()
@@ -40,7 +44,7 @@ router.post('/scrape', (req, res, next) => {
         json.Total = $(this).find('td').eq(8).text().trim()
         logs.push(json)
       })
-    console.log('NEW TEAM')
+    console.log('Finished ' + logs[0].Team)
   })
 })
 
