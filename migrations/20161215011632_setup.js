@@ -11,7 +11,7 @@ exports.up = function(knex, Promise) {
       table.string('result');
       table.string('location');
       table.string('ATS');
-      table.intger('spread');
+      table.integer('spread');
       table.integer('OU');
       table.integer('total');
       table.integer('teamScore');
@@ -26,7 +26,7 @@ exports.up = function(knex, Promise) {
       table.integer('lossesSU');
       table.integer('paceWinsSU');
       table.integer('paceWinsATS');
-      table.intger('PPG');
+      table.integer('PPG');
       table.integer('PAPG');
       table.integer('plusMinusATSPG');
       table.integer('homeWinsATS');
