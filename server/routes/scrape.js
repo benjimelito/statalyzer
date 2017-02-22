@@ -32,7 +32,7 @@ router.post('/scrape', (req, res, next) => {
         json.Opponent = $(this).find('td').eq(1).text().trim()[0] === '@' ? json.Location = 'Away' : json.Location = 'Home'
         
 
-        json.Date = $(this).find('td').eq(0).text().trim()
+        json.Date = $(this).find('td').eq(0).text().trim() //Note, you can sort these dates by using new Date(date)
         json.GameNumber = index //Argument to the each function
         json.Team = req.body.team //Passed in along with the url as part of the POST request
         json.Opponent = $(this).find('td').eq(1).text().trim().split(' ').slice(2).join(' ') //Getting of the preceding 'vs' or '@'
@@ -44,7 +44,7 @@ router.post('/scrape', (req, res, next) => {
         json.Total = $(this).find('td').eq(8).text().trim()
         logs.push(json)
       })
-    console.log('Finished ' + logs[0].Team)
+    console.log(logs)
   })
 })
 

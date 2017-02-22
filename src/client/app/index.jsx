@@ -9,10 +9,10 @@ import gameLogs from './gameLogs'
 class App extends React.Component {
   
   componentDidMount() {
-    for(var team in gameLogs) {
-      let base_url = gameLogs[team];
-      axios.post('/scrape', { url: base_url, team: team})
-    }
+    //for(var team in gameLogs) {
+      let base_url = 'http://www.oddsshark.com/stats/gamelog/basketball/nba/20747';
+      axios.post('/scrape', { url: base_url, team: 'New York'})
+    //}
   }
 
   render () {
