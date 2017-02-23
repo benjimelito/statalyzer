@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const cheerio = require('cheerio');
 const axios = require('axios');
+const helpers = require('./serverHelpers.js');
 
 router.post('/scrapeToday', (req, res, next) => {
   axios.get(req.body.url)

@@ -3,12 +3,13 @@ const router = express.Router();
 const cheerio = require('cheerio');
 const axios = require('axios');
 const cluster = require('cluster')
+const helpers = require('./serverHelpers.js')
 
+let logs = []
 
 router.post('/scrape', (req, res, next) => {
   axios.get(req.body.url)
   .then(function(response){
-    let logs = []
     let $ = cheerio.load(response.data)
       $('tr').each(function(index){
         
@@ -44,7 +45,28 @@ router.post('/scrape', (req, res, next) => {
         json.Total = $(this).find('td').eq(8).text().trim()
         logs.push(json)
       })
-    console.log(logs)
+    console.log(logs[1])
+  })
+  .then(function(){
+    helpers.getGamesForTeam(req.body.team)
+    .then(function(teamResponse){
+      console.log('Found ' + teamResponse.length + ' game objects already inserted for ' + req.body.team)
+      let gamesInDB = {};
+      logs.shift() //Removing undefined object at position 0
+
+      teamResponse.forEach(function(game){
+        gamesInDB[game.Date] = true
+      });
+
+      let newGames = logs.filter((game) => (gamesInDB[game.Date] !== true));
+      
+      newGames.forEach(function(gameObj){
+        helpers.insertGame(gameObj)
+      })
+
+      console.log('Inserting ' + newGames.length + ' game objects for ' + req.body.team + '...')
+
+    })
   })
 })
 
