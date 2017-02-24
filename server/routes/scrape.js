@@ -5,6 +5,13 @@ const axios = require('axios');
 const cluster = require('cluster')
 const helpers = require('./serverHelpers.js')
 
+const knex = require('knex')({
+  client: 'postgresql',
+  connection: {
+    database: 'statlyzer_data'
+  }
+});
+
 let logs = []
 
 router.post('/scrape', (req, res, next) => {
