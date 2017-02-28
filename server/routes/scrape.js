@@ -61,26 +61,22 @@ router.post('/scrape', (req, res, next) => {
       let gamesInDB = {};
 
       teamResponse.forEach(function(game){
-        //console.log(game)
+        if(game.teamScore){
         gamesInDB[game.date] = true
+        };
       });
-
-      console.log('Games already in DB: ', gamesInDB)
 
       logs.shift() //Removing undefined object at position 0
       let newGames = logs.filter((game) => (gamesInDB[game.date] !== true));
-
-      console.log('New Games Example: ', newGames.slice(0,6))
       
       newGames.forEach(function(gameObj){
-        helpers.insertGame(gameObj)
-        .then(function(res){
-          console.log(res)
-        })
+        if(gameObj.teamScore){
+          helpers.insertGame(gameObj)
+          .then(function(res){
+            console.log(res)
+          })
+        }
       })
-
-      //console.log('Inserting ' + newGames.length + ' game objects for ' + req.body.team + '...')
-
     })
   })
 })

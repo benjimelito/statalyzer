@@ -12,6 +12,9 @@ const db = require('./db');
 //Setting up clustering. The scraping processes take a lot of time, so let's
 //use clusters to speed them up.
 
+//ON SECOND THOUGHT: Clustering seems to cause an issue with the database locking, so we'll have to hold off
+//on this for now
+
 //The master cluster sets up all the workers
 // if(cluster.isMaster) {
 //     var numWorkers = require('os').cpus().length;
