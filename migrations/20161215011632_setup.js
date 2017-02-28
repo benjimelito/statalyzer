@@ -1,9 +1,9 @@
 
 exports.up = function(knex, Promise) {
     return Promise.all([
-    knex.schema.createTable('games', function(table){
+    knex.schema.createTableIfNotExists('games', function(table){
       table.increments('id').primary();
-      table.date('date');
+      table.string('date');
       table.integer('gameNumber');
       table.string('team');
       table.string('opponent');
@@ -11,13 +11,13 @@ exports.up = function(knex, Promise) {
       table.string('result');
       table.string('location');
       table.string('ATS');
-      table.intger('spread');
-      table.integer('OU');
-      table.integer('total');
+      table.float('spread');
+      table.string('OU');
+      table.float('total');
       table.integer('teamScore');
       table.integer('oppScore');
     }),
-    knex.schema.createTable('statsOnDate', function(table){
+    knex.schema.createTableIfNotExists('stats_on_date', function(table){
       table.increments('id').primary();
       table.date('date');
       table.integer('winsATS');
@@ -26,7 +26,7 @@ exports.up = function(knex, Promise) {
       table.integer('lossesSU');
       table.integer('paceWinsSU');
       table.integer('paceWinsATS');
-      table.intger('PPG');
+      table.integer('PPG');
       table.integer('PAPG');
       table.integer('plusMinusATSPG');
       table.integer('homeWinsATS');
@@ -68,7 +68,7 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
   return Promise.all([
     knex.schema.dropTableIfExists('teams'),
-    knex.schema.dropTableIfExists('statsOnDate'),
+    knex.schema.dropTableIfExists('stats_on_date'),
     knex.schema.dropTableIfExists('games')
   ])
 };
