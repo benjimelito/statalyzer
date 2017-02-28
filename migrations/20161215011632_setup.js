@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     return Promise.all([
     knex.schema.createTableIfNotExists('games', function(table){
       table.increments('id').primary();
-      table.date('date');
+      table.string('date');
       table.integer('gameNumber');
       table.string('team');
       table.string('opponent');
@@ -11,9 +11,9 @@ exports.up = function(knex, Promise) {
       table.string('result');
       table.string('location');
       table.string('ATS');
-      table.integer('spread');
-      table.integer('OU');
-      table.integer('total');
+      table.float('spread');
+      table.string('OU');
+      table.float('total');
       table.integer('teamScore');
       table.integer('oppScore');
     }),

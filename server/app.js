@@ -13,23 +13,23 @@ const db = require('./db');
 //use clusters to speed them up.
 
 //The master cluster sets up all the workers
-if(cluster.isMaster) {
-    var numWorkers = require('os').cpus().length;
+// if(cluster.isMaster) {
+//     var numWorkers = require('os').cpus().length;
 
-    for(var i = 0; i < numWorkers; i++) {
-        cluster.fork();
-    }
+//     for(var i = 0; i < numWorkers; i++) {
+//         cluster.fork();
+//     }
 
     // cluster.on('online', function(worker) {
     //     console.log('Worker ' + worker.process.pid + ' is online');
     // });
 
-    cluster.on('exit', function(worker, code, signal) {
-        console.log('Worker ' + worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal);
-        console.log('Starting a new worker');
-        cluster.fork();
-    });
-} else {
+//     cluster.on('exit', function(worker, code, signal) {
+//         console.log('Worker ' + worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal);
+//         console.log('Starting a new worker');
+//         cluster.fork();
+//     });
+// } else {
   //Business as usual for the worker clusters
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(bodyParser.json());
@@ -59,5 +59,5 @@ if(cluster.isMaster) {
   const server = app.listen(port, () => {
       console.log(`Server listening on port ${port}`);
   });
-}
+//}
 module.exports = app;
