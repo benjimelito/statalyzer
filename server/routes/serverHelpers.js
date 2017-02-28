@@ -12,5 +12,5 @@ exports.getGamesForTeam = function(team){
 exports.insertGame = function(gameObj){
   return knex('games')
   .returning('id')
-  .insert({date: gameObj.date, gameNumber: gameObj.gameNumber, team: gameObj.team, opponent: gameObj.opponent, game: gameObj.game, result: gameObj.result, location: gameObj.location, ATS: gameObj.ATS, spread: gameObj.spread, OU: gameObj.OU, total: gameObj.total, teamScore: gameObj.teamScore, oppScore: gameObj.oppScore})
+  .insert({date: gameObj.date, game_number: gameObj.gameNumber, team: gameObj.team, opponent: gameObj.opponent, game: gameObj.game, result: gameObj.result, location: gameObj.location, ATS: gameObj.ATS, spread: gameObj.spread, OU: gameObj.OU, total: gameObj.total, team_score: gameObj.teamScore, opp_score: gameObj.oppScore})
 }
