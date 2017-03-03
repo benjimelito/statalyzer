@@ -6,6 +6,10 @@ module.exports = {
   insertStatsOnDate : (req, res, next) => {
     helpers.getGamesForTeam(req.body.team)
     .then(function(teamResponse){
+      //Sorting, because games from the DB aren't returned in order
+      teamResponse.sort(function(a,b){
+        return a.gameNumber - b.gameNumber
+      })
       const objectsToInsert = [];
 
       teamResponse.reduce(function(totalStatsObj, gameObj){
@@ -108,11 +112,11 @@ module.exports = {
         if(gameObj.spread){
             if(gameObj.ATS === 'W'){
                 totalStatsObj.underdogWinsATS ++;
-                gameObj.location === 'Home' ? totalStatsObj.underdogHomeWinsATS ++ : underdogAwayWinsATS ++;
+                gameObj.location === 'Home' ? totalStatsObj.underdogHomeWinsATS ++ : totalStatsObj.underdogAwayWinsATS ++;
             }
             if(gameObj.ATS === 'L'){
                 totalStatsObj.underdogLossesATS ++;
-                gameObj.location === 'Home' ? totalStatObj.underdogHomeLossesATS ++ : underdogAwayLossesATS ++;
+                gameObj.location === 'Home' ? totalStatsObj.underdogHomeLossesATS ++ : totalStatsObj.underdogAwayLossesATS ++;
             }
         } else {
             if(gameObj.ATS === 'W'){
@@ -127,7 +131,7 @@ module.exports = {
 
           return totalStatsObj
 
-      ,{
+      },{
         winsATS: 0,
         lossesATS: 0,
         winsSU: 0,
@@ -175,6 +179,7 @@ module.exports = {
         favoriteHomeLossesATS: 0,
         favoriteAwayLossesATS: 0
       })
+      console.log(objectsToInsert.slice(0,3))
     })
   }
 }

@@ -7,6 +7,7 @@ const cluster = require('cluster')
 const routes = require('./routes/index.js');
 const scrape = require('./routes/scrape.js')
 const scrapeToday = require('./routes/scrapeToday.js')
+const statsOnDate = require('./routes/statsOnDate.js')
 const db = require('./db');
 
 //Setting up clustering. The scraping processes take a lot of time, so let's
@@ -42,6 +43,7 @@ const db = require('./db');
   app.use('/', routes);
   app.use(scrape);
   app.use(scrapeToday);
+  app.use(statsOnDate);
 
 
   // 404 catcher
