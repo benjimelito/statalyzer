@@ -19,16 +19,21 @@ exports.up = function(knex, Promise) {
     }),
     knex.schema.createTableIfNotExists('stats_on_date', function(table){
       table.increments('id').primary();
-      table.date('date');
+      table.string('date');
       table.integer('winsATS');
       table.integer('lossesATS');
       table.integer('winsSU');
       table.integer('lossesSU');
-      table.integer('paceWinsSU');
-      table.integer('paceWinsATS');
-      table.integer('PPG');
-      table.integer('PAPG');
-      table.integer('plusMinusATSPG');
+      table.integer('totalPoints');
+      table.integer('totalPointsAllowed')
+      table.float('paceWinsSU');
+      table.float('paceWinsATS');
+      table.float('PPG');
+      table.float('PAPG');
+      table.float('plusMinusATSPG');
+      table.integer('totalPlusMinusATS');
+      table.integer('oversToDate');
+      table.integer('undersToDate');
       table.integer('homeWinsATS');
       table.integer('homeLossesATS');
       table.integer('awayWinsATS');

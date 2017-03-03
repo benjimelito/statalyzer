@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
-const games = require('../controllers/gamesController');
+const stats = require('../controllers/statsOnDateController');
 
 const knex = require('knex')({
   client: 'postgresql',
@@ -10,6 +10,6 @@ const knex = require('knex')({
   }
 });
 
-router.post('/scrape', games.insertGame)
+router.post('/stats', stats.insertStatsOnDate)
 
 module.exports = router;
