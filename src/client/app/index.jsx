@@ -9,12 +9,10 @@ import gameLogs from './gameLogs'
 class App extends React.Component {
   
   componentDidMount() {
-    // for(var team in gameLogs) {
-    //   let base_url = gameLogs[team];
-    //   let teamToScrape = team
-    //   axios.post('/scrape', { url: base_url, team: teamToScrape})
-    // }
-    axios.post('/stats', {team: 'New York'})
+    for(var team in gameLogs) {
+      let teamToUpdate = team
+      axios.post('/stats', {team: teamToUpdate})
+    }
   }
 
   render () {

@@ -190,7 +190,7 @@ module.exports = {
         let statsInDB = {};
 
         statsResponse.forEach(function(stat){
-          statsInDB[game.date] = true
+          statsInDB[stat.date] = true
         });
 
         let newStats = objectsToInsert.filter((stat) => (statsInDB[stat.date] !== true));
