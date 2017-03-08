@@ -9,10 +9,10 @@ import gameLogs from './gameLogs'
 class App extends React.Component {
   
   componentDidMount() {
-    for(var team in gameLogs) {
-      let teamToUpdate = team
-      axios.post('/stats', {team: teamToUpdate})
-    }
+    // for(var team in gameLogs) {
+    //   let teamToUpdate = team
+    //   axios.post('/stats', {team: teamToUpdate})
+    // }
   }
 
   render () {
