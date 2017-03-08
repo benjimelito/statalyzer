@@ -19,7 +19,6 @@ class Matchups extends React.Component {
       this.setState({
         matchups : response.data
       })
-      console.log(this.state)
     })
   }
 
