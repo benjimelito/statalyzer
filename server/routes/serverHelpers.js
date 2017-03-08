@@ -27,10 +27,15 @@ exports.insertGame = function(gameObj){
     oppScore: gameObj.oppScore})
 }
 
+exports.getStatsForTeam = function(team){
+  return knex('stats_on_date').where('team', team);
+}
+
 exports.insertStats = function(statsObj){
   return knex('stats_on_date')
   .returning('id')
   .insert({
+    team: statsObj.team,
     date: statsObj.date,
     winsATS: statsObj.winsATS,
     lossesATS: statsObj.lossesATS,
