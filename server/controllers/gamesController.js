@@ -48,7 +48,7 @@ module.exports = {
       helpers.getGamesForTeam(req.body.team)
       .then(function(teamResponse){
         console.log('Found ' + teamResponse.length + ' game objects already inserted for ' + req.body.team)
-        let gamesInDB = {};
+        let gamesInDB = {}; //Used to hold every game object already in the database
 
         teamResponse.forEach(function(game){
           if(game.teamScore){
@@ -57,9 +57,10 @@ module.exports = {
         });
 
         logs.shift() //Removing undefined object at position 0
-        let newGames = logs.filter((game) => (gamesInDB[game.date] !== true));
+        let newGames = logs.filter((game) => (gamesInDB[game.date] !== true)); //Filtering out games that have 
+        //already been inserted
         
-        newGames.forEach(function(gameObj){
+        newGames.forEach(function(gameObj){ //If a filtered game object has been completed, insert it
           if(gameObj.teamScore){
             helpers.insertGame(gameObj)
             .then(function(res){
