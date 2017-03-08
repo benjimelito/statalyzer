@@ -15,123 +15,126 @@ module.exports = {
       teamResponse.reduce(function(totalStatsObj, gameObj){
         //Collecting an object of dates, with values of statsOnDate objects to be inserted.
         //This will later be compared to dates that have already been inserted.
-        let statsOnDateObj = {};
-        statsOnDateObj[gameObj.date] = totalStatsObj;
-        objectsToInsert.push(statsOnDateObj);
+        
+        let newObj = Object.assign({},totalStatsObj); //Making a copy of stats object from last tick, so that we can update it without affecting all previous totalStatsObj
+        totalStatsObj.date = gameObj.date; //Need to change totalStatsObj directly here so that we're not one day behind in the date
+        objectsToInsert.push(totalStatsObj);
 
-        //Here we are updating the totalStatsObj based on the current gameObj...Hold on to your hats boys, this is gonna get messy
-
+        //Here we are updating the newObj based on the current gameObj...Hold on to your hats boys, this is gonna get messy
+        newObj.date = gameObj.date;
         //winsATS and lossesATS
-        gameObj.ATS === 'W' ? totalStatsObj.winsATS ++ : totalStatsObj.lossesATS ++;
+        gameObj.ATS === 'W' ? newObj.winsATS ++ : newObj.lossesATS ++;
 
         //winsSU and lossesSU
-        gameObj.result = 'W' ? totalStatsObj.winsSU ++ : totalStatsObj.lossesSU ++;
+        gameObj.result === 'W' ? newObj.winsSU ++ : newObj.lossesSU ++;
         //Create total games played variable here after updating this
-        let totalGamesPlayed = gameObj.winsSU + gameObj.lossesSU;
+        let totalGamesPlayed = newObj.winsSU + newObj.lossesSU || 1;
 
         //totalPoints and totalPointsAllowed
-        totalStatsObj.totalPoints = totalStatsObj.totalPoints + gameObj.teamScore;
-        totalStatsObj.totalPointsAllowed = totalStatsObj.totalPointsAllowed + gameObj.oppScore;
+        newObj.totalPoints = newObj.totalPoints + gameObj.teamScore;
+        newObj.totalPointsAllowed = newObj.totalPointsAllowed + gameObj.oppScore;
         
         //paceWinsSU and paceWinsATS
-        totalStatsObj.paceWinsSU = totalStatsObj.winsSU / totalGamesPlayed * 82;
-        totalStatsObj.paceWinsATS = totalStatsObj.winsATS / totalGamesPlayed * 82;
+        newObj.paceWinsSU = newObj.winsSU / totalGamesPlayed * 82;
+        newObj.paceWinsATS = newObj.winsATS / totalGamesPlayed * 82;
 
         //PPG and PAPG
-        totalStatsObj.PPG = totalStatsObj.totalPoints / totalGamesPlayed;
-        totalStatsObj.PAPG = totalStatsObj.totalPointsAllowed / totalGamesPlayed;
+        newObj.PPG = newObj.totalPoints / totalGamesPlayed;
+        newObj.PAPG = newObj.totalPointsAllowed / totalGamesPlayed;
 
         //plusMinusATSPG and totalPlusMinusATS
-        totalStatsObj.totalPlusMinusATS = totalStatsObj.totalPlusMinusATS + (gameObj.teamScore - gameObj.oppScore + gameObj.spread);
-        totalStatsObj.plusMinusATSPG = totalStatsObj.totalPlusMinusATS / totalGamesPlayed;
+        newObj.totalPlusMinusATS = newObj.totalPlusMinusATS + (gameObj.teamScore - gameObj.oppScore + gameObj.spread);
+        newObj.plusMinusATSPG = newObj.totalPlusMinusATS / totalGamesPlayed;
 
         //oversToDate and undersToDate
         if(gameObj.OU === 'U'){
-            totalStatsObj.undersToDate ++;
+            newObj.undersToDate ++;
         }
         if(gameObj.OU === 'O'){
-            totalStatsObj.oversToDate ++;
+            newObj.oversToDate ++;
         }
 
         //ATS x Home/Away
         if(gameObj.location === 'Home'){
             if(gameObj.ATS === 'W'){
-                totalStatsObj.homeWinsATS ++;
+                newObj.homeWinsATS ++;
             }
             if(gameObj.ATS === 'L'){
-                totalStatsObj.homeLossesATS ++;
+                newObj.homeLossesATS ++;
             }
         } else {
             if(gameObj.ATS === 'W'){
-                totalStatsObj.awayWinsATS ++;
+                newObj.awayWinsATS ++;
             }
             if(gameObj.ATS === 'L'){
-                totalStatsObj.awayLossesATS ++;
+                newObj.awayLossesATS ++;
             }
         }
 
         //SU x Home/Away
         if(gameObj.location === 'Home'){
             if(gameObj.result === 'W'){
-                totalStatsObj.homeWinsSU ++;
+                newObj.homeWinsSU ++;
             }
             if(gameObj.result === 'L'){
-                totalStatsObj.homeLossesSU ++;
+                newObj.homeLossesSU ++;
             }
         } else {
             if(gameObj.result === 'W'){
-                totalStatsObj.awayWinsSU ++;
+                newObj.awayWinsSU ++;
             }
             if(gameObj.result === 'L'){
-                totalStatsObj.awayLossesSU ++;
+                newObj.awayLossesSU ++;
             }
         }
 
         //SU x Favorite/Underdog and SU x Favorite/Underdog x Home/Away
         if(gameObj.spread){
             if(gameObj.result === 'W'){
-                totalStatsObj.underdogWinsSU ++;
-                gameObj.location === 'Home' ? totalStatsObj.underdogHomeWinsSU ++ : totalStatsObj.underdogAwayWinsSU ++;
+                newObj.underdogWinsSU ++;
+                gameObj.location === 'Home' ? newObj.underdogHomeWinsSU ++ : newObj.underdogAwayWinsSU ++;
             }
             if(gameObj.result === 'L'){
-                totalStatsObj.underdogLossesSU ++;
-                gameObj.location === 'Home' ? totalStatsObj.underdogHomeLossesSU ++ : totalStatsObj.underdogAwayLossesSU ++;
+                newObj.underdogLossesSU ++;
+                gameObj.location === 'Home' ? newObj.underdogHomeLossesSU ++ : newObj.underdogAwayLossesSU ++;
             }
         } else {
             if(gameObj.result === 'W'){
-                totalStatsObj.favoriteWinsSU ++;
-                gameObj.location === 'Home' ? totalStatsObj.favoriteHomeWinsSU ++ : totalStatsObj.favoriteAwayWinsSU ++;
+                newObj.favoriteWinsSU ++;
+                gameObj.location === 'Home' ? newObj.favoriteHomeWinsSU ++ : newObj.favoriteAwayWinsSU ++;
             }
             if(gameObj.result === 'L'){
-                totalStatsObj.favoriteLossesSU ++;
-                gameObj.location === 'Home' ? totalStatsObj.favoriteHomeLossesSU ++ : totalStatsObj.favoriteAwayLossesSU ++;
+                newObj.favoriteLossesSU ++;
+                gameObj.location === 'Home' ? newObj.favoriteHomeLossesSU ++ : newObj.favoriteAwayLossesSU ++;
             }
         }
 
         //ATS x Favorite/Underdog and ATS x Favorite/Underdog x Home/Away
         if(gameObj.spread){
             if(gameObj.ATS === 'W'){
-                totalStatsObj.underdogWinsATS ++;
-                gameObj.location === 'Home' ? totalStatsObj.underdogHomeWinsATS ++ : totalStatsObj.underdogAwayWinsATS ++;
+                newObj.underdogWinsATS ++;
+                gameObj.location === 'Home' ? newObj.underdogHomeWinsATS ++ : newObj.underdogAwayWinsATS ++;
             }
             if(gameObj.ATS === 'L'){
-                totalStatsObj.underdogLossesATS ++;
-                gameObj.location === 'Home' ? totalStatsObj.underdogHomeLossesATS ++ : totalStatsObj.underdogAwayLossesATS ++;
+                newObj.underdogLossesATS ++;
+                gameObj.location === 'Home' ? newObj.underdogHomeLossesATS ++ : newObj.underdogAwayLossesATS ++;
             }
         } else {
             if(gameObj.ATS === 'W'){
-                totalStatsObj.favoriteWinsATS ++;
-                gameObj.location === 'Home' ? totalStatsObj.favoriteHomeWinsATS ++ : totalStatsObj.favoriteAwayWinsATS ++;
+                newObj.favoriteWinsATS ++;
+                gameObj.location === 'Home' ? newObj.favoriteHomeWinsATS ++ : newObj.favoriteAwayWinsATS ++;
             }
             if(gameObj.ATS === 'L'){
-                totalStatsObj.favoriteLossesATS ++;
-                gameObj.location === 'Home' ? totalStatsObj.favoriteHomeLossesATS ++ : totalStatsObj.favoriteAwayLossesATS ++;
+                newObj.favoriteLossesATS ++;
+                gameObj.location === 'Home' ? newObj.favoriteHomeLossesATS ++ : newObj.favoriteAwayLossesATS ++;
             }
           }
 
-          return totalStatsObj
+          console.log('Total games played: ', totalGamesPlayed)
+          return newObj
 
       },{
+        date: null,
         winsATS: 0,
         lossesATS: 0,
         winsSU: 0,
@@ -179,7 +182,12 @@ module.exports = {
         favoriteHomeLossesATS: 0,
         favoriteAwayLossesATS: 0
       })
-      console.log(objectsToInsert.slice(0,3))
+      objectsToInsert.forEach(function(statsObj){
+        helpers.insertStats(statsObj)
+        .then(function(res){
+          console.log(res)
+        })
+    })
     })
   }
 }
