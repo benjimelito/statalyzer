@@ -18,6 +18,7 @@ module.exports = {
         
         let newObj = Object.assign({},totalStatsObj); //Making a copy of stats object from last tick, so that we can update it without affecting all previous totalStatsObj
         totalStatsObj.date = gameObj.date; //Need to change totalStatsObj directly here so that we're not one day behind in the date
+        totalStatsObj.team = req.body.team;
         objectsToInsert.push(totalStatsObj);
 
         //Here we are updating the newObj based on the current gameObj...Hold on to your hats boys, this is gonna get messy
@@ -130,11 +131,11 @@ module.exports = {
             }
           }
 
-          console.log('Total games played: ', totalGamesPlayed)
           return newObj
 
       },{
         date: null,
+        team: null,
         winsATS: 0,
         lossesATS: 0,
         winsSU: 0,
@@ -182,12 +183,25 @@ module.exports = {
         favoriteHomeLossesATS: 0,
         favoriteAwayLossesATS: 0
       })
-      objectsToInsert.forEach(function(statsObj){
-        helpers.insertStats(statsObj)
-        .then(function(res){
-          console.log(res)
+      console.log(objectsToInsert.slice(0,3))
+      helpers.getStatsForTeam(req.body.team)
+      .then(function(statsResponse){
+        console.log('Found ' + statsResponse.length + ' stats objects already inserted for ' + req.body.team)
+        let statsInDB = {};
+
+        statsResponse.forEach(function(stat){
+          statsInDB[game.date] = true
+        });
+
+        let newStats = objectsToInsert.filter((stat) => (statsInDB[stat.date] !== true));
+
+        newStats.forEach(function(statsObj){
+            helpers.insertStats(statsObj)
+            .then(function(res){
+              console.log(res)
+            })
         })
-    })
+      })
     })
   }
 }
