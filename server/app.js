@@ -41,9 +41,9 @@ const db = require('./db');
 
 
   app.use('/', routes);
-  app.use(scrape);
-  app.use(scrapeToday);
-  app.use(statsOnDate);
+  app.use(scrape); //Scrape game results for a given team
+  app.use(scrapeToday); //Show today's games
+  app.use(statsOnDate); //Create stats on date objects for a given team
 
 
   // 404 catcher

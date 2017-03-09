@@ -187,15 +187,16 @@ module.exports = {
       helpers.getStatsForTeam(req.body.team)
       .then(function(statsResponse){
         console.log('Found ' + statsResponse.length + ' stats objects already inserted for ' + req.body.team)
-        let statsInDB = {};
+        let statsInDB = {}; //Used to hold every stats object already in the database
 
         statsResponse.forEach(function(stat){
           statsInDB[stat.date] = true
         });
 
-        let newStats = objectsToInsert.filter((stat) => (statsInDB[stat.date] !== true));
+        let newStats = objectsToInsert.filter((stat) => (statsInDB[stat.date] !== true)); //Filtering out games that have 
+        //already been inserted
 
-        newStats.forEach(function(statsObj){
+        newStats.forEach(function(statsObj){ //Insert stat objects
             helpers.insertStats(statsObj)
             .then(function(res){
               console.log(res)
