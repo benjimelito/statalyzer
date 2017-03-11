@@ -9,11 +9,12 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router'; //All 
 
 const App = require('./components/App');
 const Matchups = require('./components/Matchups');
+const TeamsComparison = require('./components/TeamsComparison')
 
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path='/' component={App}>
-      // <Route path="users/:userid" component={UserProfile}/>
+      <Route path="matchup/:home/:away" component={TeamsComparison}/>
       // <Route path="users/:userid/edit" component={EditPage}/>
       // <Route path="books/:bookid" component={Book} />
     </Route>
