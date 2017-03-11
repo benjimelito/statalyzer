@@ -1,8 +1,8 @@
 import React from 'react';
 import {render} from 'react-dom';
-import Matchups from './Matchups.jsx';
+import Matchups from './components/Matchups.jsx';
 import {Jumbotron} from 'react-bootstrap';
-import NavBar from './NavBar.jsx';
+import NavBar from './components/NavBar.jsx';
 import axios from 'axios';
 import gameLogs from './gameLogs'
 
