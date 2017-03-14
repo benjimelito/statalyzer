@@ -5,17 +5,16 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 // React router goodies
-import { Router, Route, browserHistory, IndexRoute } from 'react-router'; //All pieces of the router object
+import { Router, Route, browserHistory, IndexRoute, hashHistory } from 'react-router'; //All pieces of the router object
 
-const App = require('./components/App');
-const Matchups = require('./components/Matchups');
+const App = require('./components/App.jsx');
+const Matchups = require('./components/Matchups.jsx');
+const TeamsComparison = require('./components/TeamsComparison.jsx')
 
 ReactDOM.render(
-  <Router history={browserHistory}>
+  <Router history={hashHistory}>
     <Route path='/' component={App}>
-      // <Route path="users/:userid" component={UserProfile}/>
-      // <Route path="users/:userid/edit" component={EditPage}/>
-      // <Route path="books/:bookid" component={Book} />
+      <Route path="matchup/:home/:away" component={TeamsComparison}/>
     </Route>
   </Router>,
   document.getElementById('app')
