@@ -1,18 +1,15 @@
 import React from 'react';
 import {render} from 'react-dom';
-import Matchups from './components/Matchups.jsx';
+import Matchups from './Matchups.jsx';
 import {Jumbotron} from 'react-bootstrap';
 import NavBar from './NavBar.jsx';
 import axios from 'axios';
-import gameLogs from './gameLogs'
+import gameLogs from '../gameLogs.js'
 
-class App extends React.Component {
+
+export default class App extends React.Component {
   
   componentDidMount() {
-    // for(var team in gameLogs) {
-    //   let teamToUpdate = team
-    //   axios.post('/stats', {team: teamToUpdate})
-    // }
   }
 
   render () {
@@ -28,5 +25,3 @@ class App extends React.Component {
     );
   }
 }
-
-module.exports = App;

@@ -4,13 +4,9 @@ import { Row } from 'react-bootstrap';
 import { Grid } from 'react-bootstrap';
 import NavBar from './NavBar.jsx';
 
-class TeamComparison extends React.Component {
+export default class TeamsComparison extends React.Component {
   
   componentDidMount() {
-    // for(var team in gameLogs) {
-    //   let teamToUpdate = team
-    //   axios.post('/stats', {team: teamToUpdate})
-    // }
   }
 
   render () {
@@ -25,5 +21,3 @@ class TeamComparison extends React.Component {
     );
   }
 }
-
-module.exports = App;
