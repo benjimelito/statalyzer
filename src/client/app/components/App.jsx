@@ -1,10 +1,10 @@
 import React from 'react';
 import {render} from 'react-dom';
-import Matchups from './components/Matchups.jsx';
+import Matchups from './Matchups.jsx';
 import {Jumbotron} from 'react-bootstrap';
-import NavBar from './components/NavBar.jsx';
+import NavBar from './NavBar.jsx';
 import axios from 'axios';
-import gameLogs from './gameLogs'
+import gameLogs from '../gameLogs.js'
 
 class App extends React.Component {
   

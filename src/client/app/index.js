@@ -7,8 +7,8 @@ const ReactDOM = require('react-dom');
 // React router goodies
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'; //All pieces of the router object
 
-const App = require('./components/App');
-const Matchups = require('./components/Matchups');
+const App = require('./components/App.jsx');
+const Matchups = require('./components/Matchups.jsx');
 
 ReactDOM.render(
   <Router history={browserHistory}>
