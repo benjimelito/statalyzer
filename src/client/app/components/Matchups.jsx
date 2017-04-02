@@ -1,9 +1,11 @@
-import React from 'react';
-import axios from 'axios';
-import { Grid } from 'react-bootstrap';
+import React from 'react'
+import axios from 'axios'
+import { Grid } from 'react-bootstrap'
 import SingleMatchup from './SingleMatchup.jsx'
+import TeamsComparison from './TeamsComparison.jsx'
+import gameLogs from '../gameLogs.js'
 
-let MatchupsList = (props) => (
+const MatchupsList = (props) => (
   <Grid>
     {props.matchups.map(function(game, i){
       return <SingleMatchup click={props.click} home={game.Home} away={game.Away} time={game.Time} homeSpread={game['Home Spread']} homeLine={game['Home Line']} awayLine={game['Away Line']} awaySpread={game['Away Spread']} over={game.Over} under={game.Under} key={i} index={i}/>
@@ -16,15 +18,27 @@ class Matchups extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      matchups : null
+      matchups : null,
+      home: 'Home Team',
+      away: 'Away Team',
+      homeStats: null,
+      awayStats: null
     };
   }
 
   handleClick(index){
-    console.log(this.state.matchups[index].Home + '-' + this.state.matchups[index].Away)
-    //In order to pass this as a URL, we are going to have to remove the spaces in team names
-    //and replace them with something else. Also probably join them with a "_" or something.
-    //Possible that this is not the best way to do things...
+    let homeTeam = this.state.matchups[index].Home
+    let awayTeam = this.state.matchups[index].Away
+
+    axios.post('/scrape', {url: gameLogs[homeTeam], team: homeTeam}) //This may need fixing..
+    .then(() => {
+      console.log(homeTeam, " updated")
+    })
+
+    this.setState({
+      home: homeTeam,
+      away: awayTeam
+    })
   }
 
   componentDidMount() {
@@ -40,7 +54,10 @@ class Matchups extends React.Component {
   render() {
     if(this.state.matchups){
     return (
-      <MatchupsList matchups={this.state.matchups} click={this.handleClick.bind(this)}/>
+      <div>
+        <MatchupsList matchups={this.state.matchups} click={this.handleClick.bind(this)}/>
+        <TeamsComparison home={this.state.home} away={this.state.away} />
+      </div>
     );
   }
   return (<Grid></Grid>)

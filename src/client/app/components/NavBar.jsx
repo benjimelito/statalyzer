@@ -3,13 +3,13 @@ import { Navbar } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
 import { NavItem } from 'react-bootstrap';
 
-let NavBar = (props) => {
+const NavBar = (props) => {
   return (
     <div>
       <Navbar>
         <Navbar.Header>
         <Navbar.Brand>
-          <a href="#">React-Bootstrap</a>
+          <a href="#">Statalyzer</a>
         </Navbar.Brand>
         </Navbar.Header>
       <Nav>
