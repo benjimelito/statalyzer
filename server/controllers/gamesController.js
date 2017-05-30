@@ -64,7 +64,7 @@ module.exports = {
           if(gameObj.teamScore){
             helpers.insertGame(gameObj)
             .then(function(res){
-              console.log(res)
+              console.log('New ID: ', res)
             })
           }
         })

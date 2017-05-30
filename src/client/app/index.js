@@ -4,19 +4,9 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-// React router goodies
-import { Router, Route, browserHistory, IndexRoute } from 'react-router'; //All pieces of the router object
-
 const App = require('./components/App.jsx');
-const Matchups = require('./components/Matchups.jsx');
 
-ReactDOM.render(
-  <Router history={browserHistory}>
-    <Route path='/' component={App}>
-      // <Route path="users/:userid" component={UserProfile}/>
-      // <Route path="users/:userid/edit" component={EditPage}/>
-      // <Route path="books/:bookid" component={Book} />
-    </Route>
-  </Router>,
-  document.getElementById('app')
-);
+
+document.addEventListener("DOMcontentLoaded", (e) => {
+  ReactDOM.render(<App />, document.getElementById('app'));
+})

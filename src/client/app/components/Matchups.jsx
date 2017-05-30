@@ -27,13 +27,47 @@ class Matchups extends React.Component {
   }
 
   handleClick(index){
-    let homeTeam = this.state.matchups[index].Home
-    let awayTeam = this.state.matchups[index].Away
 
-    axios.post('/scrape', {url: gameLogs[homeTeam], team: homeTeam}) //This may need fixing..
+    //Removing the name of the team, only keeping the city
+    //Special cases for LA Lakers, LA Clippers, and Portland Trail Blazers
+    function formatTeamForScrape(teamName){
+      if(teamName === 'Portland Trail Blazers'){
+        let arr = teamName.split(' ')
+        arr.pop()
+        arr.pop()
+        return arr[0]
+      } else if (teamName === 'Los Angeles Lakers') {
+        return 'LA Lakers'
+      } else if (teamName === 'Los Angeles Clippers'){
+        return 'LA Clippers'
+      } else {
+        let arr = teamName.split(' ')
+        arr.pop()
+        return arr.join(' ') 
+      }
+    }
+
+    let homeTeam = formatTeamForScrape(this.state.matchups[index].Home)
+    let awayTeam = formatTeamForScrape(this.state.matchups[index].Away)
+
+    console.log('Updating for ', homeTeam, ' and ', awayTeam)
+
+    axios.post('/scrape', {url: gameLogs[homeTeam], team: homeTeam})
     .then(() => {
       console.log(homeTeam, " updated")
     })
+    .catch((err) => {
+      console.log('Error in post to /scrape: ', err)
+    })
+
+    axios.post('/scrape', {url: gameLogs[homeTeam], team: awayTeam})
+    .then(() => {
+      console.log(awayTeam, " updated")
+    })
+    .catch((err) => {
+      console.log('Error in post to /scrape: ', err)
+    })
+
 
     this.setState({
       home: homeTeam,
