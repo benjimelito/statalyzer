@@ -60,13 +60,13 @@ class Matchups extends React.Component {
       console.log('Error in post to /scrape: ', err)
     })
 
-    axios.post('/scrape', {url: gameLogs[homeTeam], team: awayTeam})
-    .then(() => {
-      console.log(awayTeam, " updated")
-    })
-    .catch((err) => {
-      console.log('Error in post to /scrape: ', err)
-    })
+    // axios.post('/scrape', {url: gameLogs[homeTeam], team: awayTeam})
+    // .then(() => {
+    //   console.log(awayTeam, " updated")
+    // })
+    // .catch((err) => {
+    //   console.log('Error in post to /scrape: ', err)
+    // })
 
 
     this.setState({

@@ -59,6 +59,8 @@ module.exports = {
         logs.shift() //Removing undefined object at position 0
         let newGames = logs.filter((game) => (gamesInDB[game.date] !== true)); //Filtering out games that have 
         //already been inserted
+        console.log('Found ' + newGames.length + ' new games to insert')
+        console.log('And here they are!!! ' + newGames.map(game => game.date))
         
         newGames.forEach(function(gameObj){ //If a filtered game object has been completed, insert it
           if(gameObj.teamScore){
@@ -69,6 +71,7 @@ module.exports = {
           }
         })
       })
-    }) 
+    })
+    res.end() 
   }
 }
