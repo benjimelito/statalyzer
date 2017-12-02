@@ -11,12 +11,12 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router'; //All 
 
 class App extends React.Component {
   
-  componentDidMount() {
-    // for(var team in gameLogs) {
-    //   let teamToUpdate = team
-    //   axios.post('/stats', {team: teamToUpdate})
-    // }
-  }
+  // componentDidMount() {
+  //   for(var team in gameLogs) {
+  //     let teamToUpdate = team
+  //     axios.post('/stats', {team: teamToUpdate})
+  //   }
+  // }
 
   render () {
     return (
