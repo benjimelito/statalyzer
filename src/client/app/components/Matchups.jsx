@@ -30,7 +30,7 @@ class Matchups extends React.Component {
 
     //Removing the name of the team, only keeping the city
     //Special cases for LA Lakers, LA Clippers, and Portland Trail Blazers
-    function formatTeamForScrape(teamName){
+    function formatTeam(teamName){
       if(teamName === 'Portland Trail Blazers'){
         let arr = teamName.split(' ')
         arr.pop()
@@ -47,35 +47,15 @@ class Matchups extends React.Component {
       }
     }
 
-    let homeTeam = formatTeamForScrape(this.state.matchups[index].Home)
-    let awayTeam = formatTeamForScrape(this.state.matchups[index].Away)
+    let homeTeam = formatTeam(this.state.matchups[index].Home)
+    let awayTeam = formatTeam(this.state.matchups[index].Away)
 
-    console.log('Updating for ', homeTeam, ' and ', awayTeam)
+    browserHistory.push('/matchup?home=' + homeTeam + '&away=' + awayTeam); 
 
-    axios.post('/scrape', {url: gameLogs[homeTeam], team: homeTeam})
-    .then(() => {
-      console.log(homeTeam, " updated")
-    })
-    .catch((err) => {
-      console.log('Error in post to /scrape: ', err)
-    })
-
-    // axios.post('/scrape', {url: gameLogs[homeTeam], team: awayTeam})
-    // .then(() => {
-    //   console.log(awayTeam, " updated")
-    // })
-    // .catch((err) => {
-    //   console.log('Error in post to /scrape: ', err)
-    // })
-
-
-    this.setState({
-      home: homeTeam,
-      away: awayTeam
-    })
   }
 
   componentDidMount() {
+    console.log(this.props.location)
     const base_url = 'https://www.sportsbook.ag/sbk/sportsbook4/nba-betting/game-lines.sbk'
     axios.post('/scrapeToday', { url: base_url})
     .then((response) => {

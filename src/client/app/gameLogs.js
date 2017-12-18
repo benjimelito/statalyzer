@@ -20,7 +20,7 @@ const gameLogs = {
   'Portland' : 'http://www.oddsshark.com/stats/gamelog/basketball/nba/20748',
   'Oklahoma City' : 'http://www.oddsshark.com/stats/gamelog/basketball/nba/20728',
   'Sacramento' : 'http://www.oddsshark.com/stats/gamelog/basketball/nba/20745',
-  'LA Clippers' : 'http://www.oddsshark.com/stats/gamelog/basketball/nba/20736'
+  'LA Clippers' : 'http://www.oddsshark.com/stats/gamelog/basketball/nba/20736',
   'Phoenix' : 'http://www.oddsshark.com/stats/gamelog/basketball/nba/20730',
   'Golden State' : 'http://www.oddsshark.com/stats/gamelog/basketball/nba/20741',
   'LA Lakers' : 'http://www.oddsshark.com/stats/gamelog/basketball/nba/20739',

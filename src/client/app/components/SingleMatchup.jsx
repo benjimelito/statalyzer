@@ -4,8 +4,7 @@ import { Row } from 'react-bootstrap';
 import { Grid } from 'react-bootstrap';
 
 const SingleMatchup = (props) => (
-  <div className='single-matchup' onClick={function(){ {props.click(props.index)}} }> 
-  {/*Calling the handleClick function with the index of the SingleMatchup object as the argument */}
+  <div className='single-matchup'> 
   <Row>
     <Col md={2}> {props.time} </Col>
     <Col md={4}> {props.home} </Col>
