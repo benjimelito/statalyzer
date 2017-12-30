@@ -204,5 +204,11 @@ module.exports = {
         })
       })
     })
+  },
+  getStatsOnDate : (req,res,next) => {
+    helpers.getStatsForTeam(req.body.team)
+    .then(function(statsResponse){
+        res.send(statsResponse.pop())
+    })
   }
 }

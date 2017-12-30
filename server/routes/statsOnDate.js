@@ -11,5 +11,6 @@ const knex = require('knex')({
 });
 
 router.post('/stats', stats.insertStatsOnDate)
+router.get('/stats', stats.getStatsOnDate)
 
 module.exports = router;
