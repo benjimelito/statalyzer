@@ -206,7 +206,7 @@ module.exports = {
     })
   },
   getStatsOnDate : (req,res,next) => {
-    helpers.getStatsForTeam(req.body.team)
+    helpers.getStatsForTeam(req.query.team)
     .then(function(statsResponse){
         res.send(statsResponse.pop())
     })
