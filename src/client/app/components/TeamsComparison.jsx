@@ -34,6 +34,7 @@ class TeamsComparison extends React.Component {
 		
 		axios.get('/stats?team=' + this.state.home)
 		.then((response) => {
+			console.log('home :',response.data)
 			this.setState({
 				homeStats : response.data
 			})
@@ -41,6 +42,7 @@ class TeamsComparison extends React.Component {
 
 		axios.get('/stats?team=' + this.state.away)
 		.then((response) => {
+			console.log('away :', response.data)
 			this.setState({
 				awayStats : response.data
 			})
@@ -83,14 +85,14 @@ class TeamsComparison extends React.Component {
 
 			  <Row>
 			    <Col md={4} className='stat'> 82 Game Pace ATS </Col>
-			    <Col md={4} className='stat'> {this.state.homeStats.paceWinsATS} '-' {82 - this.state.homeStats.paceWinsATS}</Col>
-			    <Col md={4} className='stat'> {this.state.awayStats.paceWinsATS} '-' {82 - this.state.awayStats.paceWinsATS}</Col>
+			    <Col md={4} className='stat'> {this.state.homeStats.paceWinsATS}</Col>
+			    <Col md={4} className='stat'> {this.state.awayStats.paceWinsATS}</Col>
 			  </Row>
 
 			  <Row>
 			    <Col md={4} className='stat'> 82 Game Pace SU </Col>
-			    <Col md={4} className='stat'> {this.state.homeStats.paceWinsSU} '-' {82 - this.state.homeStats.paceWinsSU}</Col>
-			    <Col md={4} className='stat'> {this.state.awayStats.paceWinsSU} '-' {82 - this.state.awayStats.paceWinsSU}</Col>
+			    <Col md={4} className='stat'> {this.state.homeStats.paceWinsSU}</Col>
+			    <Col md={4} className='stat'> {this.state.awayStats.paceWinsSU}</Col>
 			  </Row>
 
   		</div>
