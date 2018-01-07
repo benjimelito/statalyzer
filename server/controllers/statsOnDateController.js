@@ -183,7 +183,7 @@ module.exports = {
         favoriteHomeLossesATS: 0,
         favoriteAwayLossesATS: 0
       })
-      console.log(objectsToInsert.slice(0,3))
+      console.log(objectsToInsert.slice(0,3)) // Just a sampling
       helpers.getStatsForTeam(req.body.team)
       .then(function(statsResponse){
         console.log('Found ' + statsResponse.length + ' stats objects already inserted for ' + req.body.team)
@@ -203,6 +203,15 @@ module.exports = {
             })
         })
       })
+    })
+  },
+  getStatsOnDate : (req,res,next) => {
+    helpers.getStatsForTeam(req.query.team)
+    .then(function(statsResponse){
+        let sortedStats = statsResponse.sort(function(a,b){
+            return new Date(a.date) - new Date(b.date)
+        })
+        res.send(sortedStats.pop())
     })
   }
 }

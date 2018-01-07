@@ -3,3 +3,19 @@
   margin-bottom: 10px;
   padding: 2px;
 }
+
+.teams-comparison {
+  margin: 30px 45px;
+  border: 1px solid red;
+  padding: 2px;
+}
+
+.team {
+  text-align: center;
+  font-weight: bold;
+}
+
+.stat {
+  text-align: center;
+  margin: 1em 0em;
+}
