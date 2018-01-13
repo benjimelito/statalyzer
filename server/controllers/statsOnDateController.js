@@ -204,5 +204,14 @@ module.exports = {
         })
       })
     })
+  },
+  getStatsOnDate : (req,res,next) => {
+    helpers.getStatsForTeam(req.query.team)
+    .then(function(statsResponse){
+        let sortedStats = statsResponse.sort(function(a,b){
+            return new Date(a.date) - new Date(b.date)
+        })
+        res.send(sortedStats.pop())
+    })
   }
 }

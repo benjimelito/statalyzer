@@ -40,6 +40,7 @@ module.exports = {
           json.spread = Number($(this).find('td').eq(6).text().trim()) || 0
           json.OU = $(this).find('td').eq(7).text().trim()
           json.total = Number($(this).find('td').eq(8).text().trim()) || 0
+          json.season = '17-18'
           logs.push(json)
         })
       return logs

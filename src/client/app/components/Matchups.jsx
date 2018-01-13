@@ -4,6 +4,7 @@ import { Grid } from 'react-bootstrap'
 import SingleMatchup from './SingleMatchup.jsx'
 import TeamsComparison from './TeamsComparison.jsx'
 import gameLogs from '../gameLogs.js'
+import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 
 const MatchupsList = (props) => (
   <Grid>
@@ -70,7 +71,6 @@ class Matchups extends React.Component {
     return (
       <div>
         <MatchupsList matchups={this.state.matchups} click={this.handleClick.bind(this)}/>
-        <TeamsComparison home={this.state.home} away={this.state.away} />
       </div>
     );
   }
